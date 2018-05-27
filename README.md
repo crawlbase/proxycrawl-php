@@ -9,7 +9,7 @@ Choose a way of installing:
 - Download the php class from Github.
 - Or use [Packagist](https://packagist.org/packages/proxycrawl/proxycrawl) PHP package manager.
 
-Then require the `proxycrawl-$response = $api->php` file.
+Then require the `proxycrawl-api.php` file.
 
 ## Class usage
 
