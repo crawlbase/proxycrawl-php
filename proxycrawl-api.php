@@ -118,7 +118,7 @@ class ProxyCrawlAPI {
 
   private function processResponseHeaders($curl, $header) {
     $headerSplit = preg_split('/:/', $header);
-    $value = trim($headerSplit[1]);
+    $value = isset($headerSplit[1]) ? trim($headerSplit[1]) : '';
     if (is_numeric($value)) {
       $value = (int) $value;
     }
