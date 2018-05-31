@@ -42,7 +42,6 @@ class ProxyCrawlAPI {
     $this->response = [];
     $this->response['headers'] = [];
     $url = $this->buildURL($url, $options);
-    $headerData = [];
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -65,9 +64,6 @@ class ProxyCrawlAPI {
     }
     if (!is_null($data) && $options['method'] === 'POST') {
       curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    }
-    if (sizeof($headerData) > 0) {
-      curl_setopt($curl, CURLOPT_HTTPHEADER, $headerData);
     }
     try {
       $this->response['body'] = curl_exec($curl);
