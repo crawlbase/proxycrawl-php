@@ -78,7 +78,7 @@ if ($response->statusCode === 200) {
 
 ### Javascript requests
 
-If you need to scrape any website built with Javascript like React, Angular, Vue, etc. You just need to pass your javascript token and use the same calls. Note that only `.get` is available for javascript and not `.post`.
+If you need to scrape any website built with Javascript like React, Angular, Vue, etc. You just need to pass your javascript token and use the same calls. Note that only `->get` is available for javascript and not `->post`.
 
 ```php
 $api = new ProxyCrawlAPI(['token' => 'YOUR_JAVASCRIPT_TOKEN']);
