@@ -70,7 +70,7 @@ class ProxyCrawlAPI {
       $this->response['statusCode'] = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
       if (!empty($options['format']) && $options['format'] === 'json') {
-        $this->parseJsonResponse($this->response);
+        $this->parseJsonResponse();
       }
 
       if ($this->debug || $this->advDebug) {
