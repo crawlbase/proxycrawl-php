@@ -128,7 +128,6 @@ class ProxyCrawlAPI {
     $this->response['headers']['original_status'] = $json->original_status;
     $this->response['headers']['pc_status'] = $json->pc_status;
     $this->response['headers']['url'] = $json->url;
-    $this->response['body'] = $json->body;
   }
 
 }
