@@ -7,9 +7,10 @@
  * Copyright ProxyCrawl
  * Licensed under the Apache License 2.0
  */
-define('PROXYCRAWL_API_URL', 'https://api.proxycrawl.com/');
-
 class ProxyCrawlAPI {
+  
+  const PUBLIC_PROXYCRAWL_API_URL = 'https://api.proxycrawl.com/';
+  
   public $timeout = 30000;
   public $debug = false;
   public $advDebug = false; // Note that enabling advanced debug will include debugging information in the response possibly breaking up your code
@@ -21,8 +22,10 @@ class ProxyCrawlAPI {
     if (empty($options['token'])) {
       throw new Exception('You need to specify the token');
     }
+    
+    $apiBaseUrl = isset($options['apiBaseUrl']) ? $options['apiBaseUrl'] : static::PUBLIC_PROXYCRAWL_API_URL;
     $this->options = $options;
-    $this->endPointUrl = PROXYCRAWL_API_URL . '?token=' . $options['token'];
+    $this->endPointUrl = $apiBaseUrl . '?token=' . $options['token'];
   }
 
   public function get(string $url, array $options = []) {
