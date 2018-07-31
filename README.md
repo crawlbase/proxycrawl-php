@@ -13,7 +13,7 @@ Then require the `proxycrawl-api.php` file.
 
 ## Class usage
 
-First initialize the ProxyCrawlAPI class
+First initialize the ProxyCrawlAPI class. You can [get your free token here](https://proxycrawl.com/signup).
 
 ```php
 $api = new ProxyCrawlAPI(['token' => 'YOUR_PROXYCRAWL_TOKEN']);
