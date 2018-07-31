@@ -76,6 +76,23 @@ if ($response->statusCode === 200) {
 }
 ```
 
+### PUT requests
+
+Pass the url that you want to scrape, the data that you want to send which can be either a json or a string, plus any options from the ones available in the [API documentation](https://proxycrawl.com/dashboard/docs).
+
+```php
+$api->put(string $url, array or string $data, array options = []);
+```
+
+Example:
+
+```php
+$response = $api->put('https://producthunt.com/search', ['text' => 'example search']);
+if ($response->statusCode === 200) {
+  echo $response->body;
+}
+```
+
 ### Javascript requests
 
 If you need to scrape any website built with Javascript like React, Angular, Vue, etc. You just need to pass your javascript token and use the same calls. Note that only `->get` is available for javascript and not `->post`.
@@ -111,3 +128,7 @@ echo $response->headers->pc_status;
 ```
 
 If you have questions or need help using the library, please open an issue or [contact us](https://proxycrawl.com/contact).
+
+---
+
+Copyright 2018 ProxyCrawl

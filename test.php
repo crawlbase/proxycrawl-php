@@ -25,6 +25,8 @@ processResponse($normalAPI->post('http://httpbin.org/post', ['hello' => 'post'])
 
 processResponse($normalAPI->post('http://httpbin.org/post', json_encode(['hello' => 'json']), ['post_content_type' => 'application/json']));
 
+processResponse($normalAPI->put('http://httpbin.org/put', ['hello' => 'put']));
+
 $javascriptAPI = new ProxyCrawlAPI(['token' => $javascriptToken]);
 
 processResponse($javascriptAPI->get('http://httpbin.org/anything?hello=world'));

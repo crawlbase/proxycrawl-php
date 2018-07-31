@@ -31,11 +31,18 @@ class ProxyCrawlAPI {
   }
 
   public function post(string $url, $data, array $options = []) {
-    $options['method'] = 'POST';
+    if (!isset($options['method'])) {
+      $options['method'] = 'POST';
+    }
     if (is_array($data)) {
       $data = http_build_query($data);
     }
     return $this->request($url, $data, $options);
+  }
+
+  public function put(string $url, $data, array $options = []) {
+    $options['method'] = 'PUT';
+    return $this->post($url, $data, $options);
   }
 
   private function request(string $url, $data = null, array $options = []) {
@@ -61,8 +68,10 @@ class ProxyCrawlAPI {
 
     if ($options['method'] === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
+    } else if ($options['method'] === 'PUT') {
+      curl_setopt($curl, CURLOPT_PUT, true);
     }
-    if (!is_null($data) && $options['method'] === 'POST') {
+    if (!is_null($data) && ($options['method'] === 'POST' || $options['method'] === 'PUT')) {
       curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     }
     try {
