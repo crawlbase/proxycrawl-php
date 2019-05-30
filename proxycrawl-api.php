@@ -54,6 +54,7 @@ class ProxyCrawlAPI {
     $url = $this->buildURL($url, $options);
     $curl = curl_init();
 
+    curl_setopt($curl, CURLOPT_ENCODING, 'gzip,deflate');
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Don't print the result
     curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->timeout);
