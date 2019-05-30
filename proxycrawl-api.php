@@ -8,7 +8,7 @@
  * Licensed under the Apache License 2.0
  */
 class ProxyCrawlAPI {
-  
+
   const PUBLIC_PROXYCRAWL_API_URL = 'https://api.proxycrawl.com/';
   
   public $timeout = 30000;
@@ -22,7 +22,7 @@ class ProxyCrawlAPI {
     if (empty($options['token'])) {
       throw new Exception('You need to specify the token');
     }
-    
+
     $apiBaseUrl = isset($options['apiBaseUrl']) ? $options['apiBaseUrl'] : static::PUBLIC_PROXYCRAWL_API_URL;
     $this->options = $options;
     $this->endPointUrl = $apiBaseUrl . '?token=' . $options['token'];
