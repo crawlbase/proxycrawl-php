@@ -10,7 +10,7 @@
 class ProxyCrawlAPI {
 
   const PUBLIC_PROXYCRAWL_API_URL = 'https://api.proxycrawl.com/';
-  
+
   public $timeout = 30000;
   public $debug = false;
   public $advDebug = false; // Note that enabling advanced debug will include debugging information in the response possibly breaking up your code
@@ -111,7 +111,9 @@ class ProxyCrawlAPI {
 
     // Cast to object for easier access
     $this->response = (object) $this->response;
-    $this->response->headers = (object) $this->response->headers;
+    if (isset($this->response->headers)) {
+      $this->response->headers = (object) $this->response->headers;
+    }
 
     return $this->response;
   }
