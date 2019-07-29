@@ -129,11 +129,13 @@ class ProxyCrawlAPI {
 
   private function processResponseHeaders($curl, $header) {
     $headerSplit = preg_split('/:/', $header);
-    $value = isset($headerSplit[1]) ? trim($headerSplit[1]) : '';
+    $headerName = $headerSplit[0];
+    unset($headerSplit[0]);
+    $value = isset($headerSplit[1]) ? trim(implode(':', $headerSplit)) : '';
     if (is_numeric($value)) {
       $value = (int) $value;
     }
-    $this->response['headers'][$headerSplit[0]] = $value;
+    $this->response['headers'][$headerName] = $value;
 
     return strlen($header);
   }
