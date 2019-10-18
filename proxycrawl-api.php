@@ -28,12 +28,12 @@ class ProxyCrawlAPI {
     $this->endPointUrl = $apiBaseUrl . '?token=' . $options['token'];
   }
 
-  public function get(string $url, array $options = []) {
+  public function get($url, array $options = []) {
     $options['method'] = 'GET';
     return $this->request($url, null, $options);
   }
 
-  public function post(string $url, $data, array $options = []) {
+  public function post($url, $data, array $options = []) {
     if (!isset($options['method'])) {
       $options['method'] = 'POST';
     }
@@ -43,12 +43,15 @@ class ProxyCrawlAPI {
     return $this->request($url, $data, $options);
   }
 
-  public function put(string $url, $data, array $options = []) {
+  public function put($url, $data, array $options = []) {
     $options['method'] = 'PUT';
     return $this->post($url, $data, $options);
   }
 
-  private function request(string $url, $data = null, array $options = []) {
+  private function request($url, $data = null, array $options = []) {
+    if (!is_string($url)) {
+      return trigger_error('Url must be a string', E_USER_ERROR);
+    }
     $this->response = [];
     $this->response['headers'] = [];
     $url = $this->buildURL($url, $options);
@@ -119,7 +122,7 @@ class ProxyCrawlAPI {
     return $this->response;
   }
 
-  private function buildURL(string $url, array $options) {
+  private function buildURL($url, array $options) {
     $options = http_build_query($options);
     $url = urlencode($url);
     $url = $this->endPointUrl . '&url=' . $url . '&' . $options;
