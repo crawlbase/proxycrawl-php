@@ -11,7 +11,7 @@ class ProxyCrawlAPI {
 
   const PUBLIC_PROXYCRAWL_API_URL = 'https://api.proxycrawl.com/';
 
-  public $timeout = 60000;
+  public $timeout = 90;
   public $debug = false;
   public $advDebug = false; // Note that enabling advanced debug will include debugging information in the response possibly breaking up your code
 
