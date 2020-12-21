@@ -119,6 +119,25 @@ if ($response->statusCode === 200) {
 }
 ```
 
+## Scraper API
+
+First initialize the ScraperAPI class. You can [get your free token here](https://proxycrawl.com/signup?signup=github). Please note that only some websites are supported, check the [API documentation](https://proxycrawl.com/docs/scraper-api/) for more information.
+
+```php
+$api = new ProxyCrawl\ScraperAPI(['token' => 'YOUR_PROXYCRAWL_TOKEN']);
+```
+
+Pass the url that you want to scrape plus any options from the ones available in the [API documentation](https://proxycrawl.com/docs/scraper-api/).
+
+Example:
+
+```php
+$response = $api->get('https://www.amazon.com/DualSense-Wireless-Controller-PlayStation-5/dp/B08FC6C75Y/');
+if ($response->statusCode === 200) {
+  echo $response->json->name; // Will print the Amazon item name.
+}
+```
+
 ## Original status
 
 You can always get the original status and proxycrawl status from the response. Read the [ProxyCrawl documentation](https://proxycrawl.com/docs/crawling-api/) to learn more about those status.

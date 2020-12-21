@@ -1,5 +1,6 @@
 <?php
 require_once('src/crawling-api.php');
+require_once('src/scraper-api.php');
 
 $normalToken = '';
 $javascriptToken = '';
@@ -27,6 +28,10 @@ processResponse($normalAPI->post('http://httpbin.org/post', json_encode(['hello'
 
 processResponse($normalAPI->put('http://httpbin.org/put', ['hello' => 'put']));
 
-$javascriptAPI = new ProxyCrawlAPI(['token' => $javascriptToken]);
+$javascriptAPI = new ProxyCrawl\CrawlingAPI(['token' => $javascriptToken]);
 
 processResponse($javascriptAPI->get('http://httpbin.org/anything?hello=world'));
+
+$scraperAPI = new ProxyCrawl\ScraperAPI(['token' => $normalToken]);
+
+processResponse($scraperAPI->get('https://www.amazon.com/DualSense-Wireless-Controller-PlayStation-5/dp/B08FC6C75Y/'));

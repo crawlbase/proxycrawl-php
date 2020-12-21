@@ -20,7 +20,8 @@
   "autoload": {
     "classmap": [
       "proxycrawl-api.php",
-      "src/crawling-api.php"
+      "src/crawling-api.php",
+      "src/scraper-api.php"
     ]
   },
   "require": {
