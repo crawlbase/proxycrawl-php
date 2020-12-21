@@ -1,5 +1,5 @@
 <?php
-require_once('proxycrawl-api.php');
+require_once('src/crawling-api.php');
 
 $normalToken = '';
 $javascriptToken = '';
@@ -13,7 +13,7 @@ function processResponse($response) {
   }
 }
 
-$normalAPI = new ProxyCrawlAPI(['token' => $normalToken]);
+$normalAPI = new ProxyCrawl\CrawlingAPI(['token' => $normalToken]);
 
 processResponse($normalAPI->get('http://httpbin.org/anything?hello=world'));
 

@@ -6,22 +6,24 @@ A lightweight, dependency free PHP class that acts as wrapper for ProxyCrawl API
 
 Choose a way of installing:
 
-- Download the php class from Github.
-- Or use [Packagist](https://packagist.org/packages/proxycrawl/proxycrawl) PHP package manager.
+- Use [Packagist](https://packagist.org/packages/proxycrawl/proxycrawl) PHP package manager.
+- Download the project from Github and save it into your project so you can require it `require_once('proxycrawl-php/src/[class].php')`
 
-Then require the `proxycrawl-api.php` file.
+### Upgrading to version 2
 
-## Class usage
+Version 2 deprecates the usage of ProxyCrawlAPI (although is still usable but will be removed in future versions) in favour of ProxyCrawl\CrawlingAPI. Please test the upgrade before deploying to production.
 
-First initialize the ProxyCrawlAPI class. You can [get your free token here](https://proxycrawl.com/signup).
+## Crawling API
+
+First initialize the CrawlingAPI class. You can [get your free token here](https://proxycrawl.com/signup?signup=github).
 
 ```php
-$api = new ProxyCrawlAPI(['token' => 'YOUR_PROXYCRAWL_TOKEN']);
+$api = new ProxyCrawl\CrawlingAPI(['token' => 'YOUR_PROXYCRAWL_TOKEN']);
 ```
 
 ### GET requests
 
-Pass the url that you want to scrape plus any options from the ones available in the [API documentation](https://proxycrawl.com/dashboard/docs).
+Pass the url that you want to scrape plus any options from the ones available in the [API documentation](https://proxycrawl.com/docs/crawling-api/).
 
 ```php
 $api->get(string $url, array $options = []);
@@ -52,7 +54,7 @@ if ($response->statusCode === 200) {
 
 ### POST requests
 
-Pass the url that you want to scrape, the data that you want to send which can be either a json or a string, plus any options from the ones available in the [API documentation](https://proxycrawl.com/dashboard/docs).
+Pass the url that you want to scrape, the data that you want to send which can be either a json or a string, plus any options from the ones available in the [API documentation](https://proxycrawl.com/docs/crawling-api/).
 
 ```php
 $api->post(string $url, array or string $data, array options = []);
@@ -78,7 +80,7 @@ if ($response->statusCode === 200) {
 
 ### PUT requests
 
-Pass the url that you want to scrape, the data that you want to send which can be either a json or a string, plus any options from the ones available in the [API documentation](https://proxycrawl.com/dashboard/docs).
+Pass the url that you want to scrape, the data that you want to send which can be either a json or a string, plus any options from the ones available in the [API documentation](https://proxycrawl.com/docs/crawling-api/).
 
 ```php
 $api->put(string $url, array or string $data, array options = []);
@@ -98,7 +100,7 @@ if ($response->statusCode === 200) {
 If you need to scrape any website built with Javascript like React, Angular, Vue, etc. You just need to pass your javascript token and use the same calls. Note that only `->get` is available for javascript and not `->post`.
 
 ```php
-$api = new ProxyCrawlAPI(['token' => 'YOUR_JAVASCRIPT_TOKEN']);
+$api = new ProxyCrawl\CrawlingAPI(['token' => 'YOUR_JAVASCRIPT_TOKEN']);
 ```
 
 ```php
@@ -119,7 +121,7 @@ if ($response->statusCode === 200) {
 
 ## Original status
 
-You can always get the original status and proxycrawl status from the response. Read the [ProxyCrawl documentation](https://proxycrawl.com/dashboard/docs) to learn more about those status.
+You can always get the original status and proxycrawl status from the response. Read the [ProxyCrawl documentation](https://proxycrawl.com/docs/crawling-api/) to learn more about those status.
 
 ```php
 $response = $api->get('https://craiglist.com');

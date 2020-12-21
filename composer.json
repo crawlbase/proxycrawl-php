@@ -1,7 +1,13 @@
 {
   "name": "proxycrawl/proxycrawl",
   "description": "A lightweight, dependency free PHP class that acts as wrapper for ProxyCrawl API",
-  "keywords": ["scraping", "scraper", "crawler", "crawling", "proxycrawl"],
+  "keywords": [
+    "scraping",
+    "scraper",
+    "crawler",
+    "crawling",
+    "proxycrawl"
+  ],
   "homepage": "https://github.com/proxycrawl/proxycrawl-php",
   "license": "Apache-2.0",
   "authors": [
@@ -13,7 +19,8 @@
   ],
   "autoload": {
     "classmap": [
-      "proxycrawl-api.php"
+      "proxycrawl-api.php",
+      "src/crawling-api.php"
     ]
   },
   "require": {
