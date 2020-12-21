@@ -2,11 +2,17 @@
   "name": "proxycrawl/proxycrawl",
   "description": "A lightweight, dependency free PHP class that acts as wrapper for ProxyCrawl API",
   "keywords": [
+    "proxycrawl",
     "scraping",
+    "scraping api",
     "scraper",
+    "scraper api",
     "crawler",
+    "crawler api",
     "crawling",
-    "proxycrawl"
+    "crawling api",
+    "leads",
+    "leads api"
   ],
   "homepage": "https://github.com/proxycrawl/proxycrawl-php",
   "license": "Apache-2.0",
