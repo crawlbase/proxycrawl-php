@@ -138,6 +138,27 @@ if ($response->statusCode === 200) {
 }
 ```
 
+## Leads API
+
+First initialize the LeadsAPI class. You can [get your free token here](https://proxycrawl.com/signup?signup=github).
+
+```php
+$api = new ProxyCrawl\LeadsAPI(['token' => 'YOUR_PROXYCRAWL_TOKEN']);
+```
+
+Pass the domain where you want to search for leads.
+
+Example:
+
+```php
+$response = $api->getFromDomain('target.com');
+if ($response->statusCode === 200) {
+  foreach ($response->json->leads as $key => $lead) {
+    echo $lead->email;
+  }
+}
+```
+
 ## Original status
 
 You can always get the original status and proxycrawl status from the response. Read the [ProxyCrawl documentation](https://proxycrawl.com/docs/crawling-api/) to learn more about those status.

@@ -13,22 +13,24 @@ require_once('base-api.php');
 class CrawlingAPI extends BaseAPI {
 
   public function get($url, array $options = []) {
-    return $this->request($url, null, $options);
+    $options['url'] = $url;
+    return $this->request($options);
   }
 
   public function post($url, $data, array $options = []) {
+    $options['url'] = $url;
     if (!isset($options['method'])) {
       $options['method'] = 'POST';
     }
     if (is_array($data)) {
       $data = http_build_query($data);
     }
-    return $this->request($url, $data, $options);
+    return $this->request($options, $data);
   }
 
   public function put($url, $data, array $options = []) {
     $options['method'] = 'PUT';
-    return $this->post($url, $data, $options);
+    return $this->post($url, $options, $data);
   }
 
 }

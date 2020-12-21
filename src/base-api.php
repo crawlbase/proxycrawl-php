@@ -30,13 +30,13 @@ class BaseAPI {
     $this->endPointUrl = $apiBaseUrl . $this->basePath . '?token=' . $options['token'];
   }
 
-  protected function request($url, $data = null, array $options = []) {
-    if (!is_string($url)) {
-      return trigger_error('Url must be a string', E_USER_ERROR);
+  protected function request(array $options = [], $data = null) {
+    if (!is_string($options['url']) && !is_string($options['domain'])) {
+      return trigger_error('Url or domain (leads api) must be provided', E_USER_ERROR);
     }
     $this->response = [];
     $this->response['headers'] = [];
-    $url = $this->buildURL($url, $options);
+    $url = $this->buildURL($options);
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_ENCODING, 'gzip,deflate');
@@ -107,14 +107,12 @@ class BaseAPI {
     return $this->response;
   }
 
-  private function buildURL($url, array $options) {
+  private function buildURL(array $options) {
     $queryOptions = $options; // Copy the array.
     unset($queryOptions['method']);
     $options = http_build_query($queryOptions);
-    $url = urlencode($url);
-    $url = $this->endPointUrl . '&url=' . $url . '&' . $options;
 
-    return $url;
+    return $this->endPointUrl . '&' . $options;
   }
 
   private function processResponseHeaders($curl, $header) {
@@ -142,6 +140,8 @@ class BaseAPI {
     }
     if (!empty($json->body)) {
       $this->response['json'] = $json->body;
+    } else {
+      $this->response['json'] = $json;
     }
   }
 

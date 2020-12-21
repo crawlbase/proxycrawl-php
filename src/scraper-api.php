@@ -15,7 +15,8 @@ class ScraperAPI extends BaseAPI {
   protected $basePath = 'scraper';
 
   public function get($url, array $options = []) {
-    return $this->request($url, null, $options);
+    $options['url'] = $url;
+    return $this->request($options);
   }
 
   public function post($url, $data, array $options = []) {
