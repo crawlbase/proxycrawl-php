@@ -55,9 +55,9 @@ class BaseAPI {
       curl_setopt($curl, CURLOPT_VERBOSE, true); // Display communication with server
     }
 
-    if ($options['method'] === 'POST') {
+    if (isset($options['method']) && $options['method'] === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
-    } else if ($options['method'] === 'PUT') {
+    } else if (isset($options['method']) && $options['method'] === 'PUT') {
       curl_setopt($curl, CURLOPT_PUT, true);
     }
     if (!is_null($data) && ($options['method'] === 'POST' || $options['method'] === 'PUT')) {
