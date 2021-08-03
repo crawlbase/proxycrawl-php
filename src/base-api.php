@@ -17,28 +17,50 @@ class BaseAPI {
 
   protected $basePath = '';
 
-  private $response;
+  protected $response;
+  private $apiBaseUrl;
   private $endPointUrl;
+  private $token;
 
-  public function __construct($options = []) {
+  public function __construct(array $options = array()) {
     if (empty($options['token'])) {
-      throw new Exception('You need to specify the token');
+      throw new \Exception('You need to specify the token');
     }
 
-    $apiBaseUrl = isset($options['apiBaseUrl']) ? $options['apiBaseUrl'] : static::PUBLIC_PROXYCRAWL_API_URL;
+    $this->token = $options['token'];
+
+    $this->apiBaseUrl = isset($options['apiBaseUrl']) ? $options['apiBaseUrl'] : static::PUBLIC_PROXYCRAWL_API_URL;
+    unset($options['apiBaseUrl']);
+
     $this->options = $options;
-    $this->endPointUrl = $apiBaseUrl . $this->basePath . '?token=' . $options['token'];
+
+    $this->setEndpoint();
   }
 
-  protected function request(array $options = [], $data = null) {
-    if (!is_string($options['url']) && !is_string($options['domain'])) {
-      return trigger_error('Url or domain (leads api) must be provided', E_USER_ERROR);
+  public function __get($property) {
+    $allowedProperties = array('response', 'token');
+    if (property_exists($this, $property) && in_array($property, $allowedProperties, true)) {
+      return $this->$property;
     }
-    $this->response = [];
-    $this->response['headers'] = [];
+  }
+
+  protected function setEndpoint($newBasePath = null) {
+    $path = isset($newBasePath) ? $newBasePath : $this->basePath; 
+    $this->endPointUrl = $this->apiBaseUrl . $path . '?token=' . $this->token;
+  }
+
+  protected function request(array $options = array(), $data = null) {
+    $this->response = array();
+    $this->response['headers'] = array();
     $url = $this->buildURL($options);
     $curl = curl_init();
 
+    $beforeCallback = null;
+    if (array_key_exists('beforeCurlExecCallback', $options) && is_callable($options['beforeCurlExecCallback'])) {
+      $beforeCallback = $options['beforeCurlExecCallback'];
+    }
+    unset($options['beforeCurlExecCallback']);
+    
     curl_setopt($curl, CURLOPT_ENCODING, 'gzip,deflate');
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Don't print the result
@@ -47,7 +69,7 @@ class BaseAPI {
     curl_setopt($curl, CURLOPT_FAILONERROR, true);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL connection
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); //         ""           ""
-    curl_setopt($curl, CURLOPT_HEADERFUNCTION, [&$this, 'processResponseHeaders']);
+    curl_setopt($curl, CURLOPT_HEADERFUNCTION, array(&$this, 'processResponseHeaders'));
 
     if ($this->advDebug) {
       curl_setopt($curl, CURLOPT_HEADER, true); // Display headers
@@ -59,11 +81,18 @@ class BaseAPI {
       curl_setopt($curl, CURLOPT_POST, true);
     } else if (isset($options['method']) && $options['method'] === 'PUT') {
       curl_setopt($curl, CURLOPT_PUT, true);
+    } else if (isset($options['method']) && $options['method'] === 'DELETE') {
+      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
     }
+
     if (!is_null($data) && ($options['method'] === 'POST' || $options['method'] === 'PUT')) {
       curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     }
     try {
+      if ($beforeCallback !== null) {
+        $beforeCallback($curl);
+      }
+
       $this->response['body'] = curl_exec($curl);
       $this->response['statusCode'] = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
@@ -128,7 +157,7 @@ class BaseAPI {
     return strlen($header);
   }
 
-  private function parseJsonResponse() {
+  protected function parseJsonResponse() {
     $json = json_decode($this->response['body']);
     if (!empty($json->original_status)) {
       $this->response['headers']['original_status'] = $json->original_status;

@@ -14,7 +14,10 @@ class LeadsAPI extends BaseAPI {
 
   protected $basePath = 'leads';
 
-  public function getFromDomain($domain, array $options = []) {
+  public function getFromDomain($domain, array $options = array()) {
+    if (empty($domain)) {
+      throw new \Exception('Domain must be provided');
+    }   
     $options['domain'] = $domain;
     return $this->request($options);
   }

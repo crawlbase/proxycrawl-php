@@ -14,17 +14,17 @@ class ScraperAPI extends BaseAPI {
 
   protected $basePath = 'scraper';
 
-  public function get($url, array $options = []) {
+  public function get($url, array $options = array()) {
     $options['url'] = $url;
     return $this->request($options);
   }
 
-  public function post($url, $data, array $options = []) {
-    throw new Exception('POST is not supported on the Scraper API');
+  public function post($url, $data, array $options = array()) {
+    throw new \Exception('POST is not supported on the Scraper API');
   }
 
-  public function put($url, $data, array $options = []) {
-    throw new Exception('PUT is not supported on the Scraper API');
+  public function put($url, $data, array $options = array()) {
+    throw new \Exception('PUT is not supported on the Scraper API');
   }
 
 }
