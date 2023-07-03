@@ -1,3 +1,9 @@
+# DEPRECATION NOTICE
+
+> :warning: **IMPORTANT:** This package is no longer maintained or supported. For the latest updates, please use our new package at [crawlbase-php](https://github.com/crawlbase-source/crawlbase-php).
+
+---
+
 # ProxyCrawl API PHP class
 
 A lightweight, dependency free PHP class that acts as wrapper for ProxyCrawl API.
